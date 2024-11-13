@@ -1,0 +1,24 @@
+; Stunnel configuration
+pid = /tmp/stunnel.pid
+output = /tmp/stunnel.log
+
+; Debugging stuff
+debug = info
+syslog = no
+
+; Protocol version (fixed syntax)
+sslVersion = TLSv1.2
+
+; Security options
+options = NO_SSLv2
+options = NO_SSLv3
+
+; Security
+ciphers = ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384
+verify = 0
+
+[https]
+accept = @STUNNEL_PORT@
+connect = 127.0.0.1:@THTTPD_PORT@
+cert = /tmp/certs/certificate.pem
+key = /tmp/certs/private.key

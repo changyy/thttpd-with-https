@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo "Stopping servers..."
+
+# 停止 thttpd
+if [ -f /tmp/thttpd.pid ]; then
+    kill $(cat /tmp/thttpd.pid)
+    rm -f /tmp/thttpd.pid
+fi
+
+# 停止 stunnel
+if [ -f /tmp/stunnel.pid ]; then
+    kill $(cat /tmp/stunnel.pid)
+    rm -f /tmp/stunnel.pid
+fi
+
+echo "Servers stopped"

@@ -1,0 +1,42 @@
+#!/bin/bash
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$SCRIPT_DIR"
+
+# 確保目錄存在
+mkdir -p /tmp/certs
+
+# 檢查憑證是否存在，如果不存在則生成
+if [ ! -f /tmp/certs/certificate.pem ]; then
+    echo "Generating certificates..."
+    ./generate-cert.sh
+fi
+
+# 確保之前的實例已經停止
+pkill -f thttpd
+pkill -f stunnel
+
+# 建立測試頁面
+echo "<html><body><h1>THTTPD Test Page</h1><p>Running on port @THTTPD_PORT@</p></body></html>" > /tmp/index.html
+
+# 啟動 thttpd
+echo "Starting thttpd on port @THTTPD_PORT@..."
+./thttpd -C thttpd.conf
+
+# 啟動 stunnel
+echo "Starting stunnel on port @STUNNEL_PORT@..."
+./stunnel stunnel.conf
+
+# 等待服務啟動
+sleep 2
+
+# 測試服務
+echo -e "\nTesting HTTP connection:"
+curl -s http://localhost:@THTTPD_PORT@ > /dev/null && echo "HTTP OK" || echo "HTTP Failed"
+
+echo -e "\nTesting HTTPS connection:"
+curl -sk https://localhost:@STUNNEL_PORT@ > /dev/null && echo "HTTPS OK" || echo "HTTPS Failed"
+
+echo -e "\nServices are running:"
+echo "HTTP  -> http://localhost:@THTTPD_PORT@"
+echo "HTTPS -> https://localhost:@STUNNEL_PORT@"

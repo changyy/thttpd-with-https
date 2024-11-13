@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# 建立憑證目錄
+mkdir -p /tmp/certs
+
+# 生成私鑰
+openssl genrsa -out /tmp/certs/private.key 2048
+
+# 生成自簽名憑證
+openssl req -new -x509 -key /tmp/certs/private.key -out /tmp/certs/certificate.pem -days 365 \
+    -subj "/C=TW/ST=Taiwan/L=Taipei/O=Development/CN=localhost"
+
+# 設定權限
+chmod 600 /tmp/certs/private.key
+chmod 644 /tmp/certs/certificate.pem
+
+echo "Certificates generated in /tmp/certs/"

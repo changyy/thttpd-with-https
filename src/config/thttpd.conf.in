@@ -1,0 +1,30 @@
+# Port to listen on
+port=@THTTPD_PORT@
+
+# Web server root directory
+dir=/tmp
+
+# Run as this user
+user=nobody
+
+# CGI pattern
+cgipat=/cgi-bin/*
+
+# Log file location
+logfile=/tmp/thttpd.log
+
+# PID file location
+pidfile=/tmp/thttpd.pid
+
+# Listen on localhost only
+host=127.0.0.1
+
+# Character set
+charset=utf-8
+
+# Other optional settings
+#throttles=/etc/thttpd/throttle.conf
+#listen=10
+#no-symlink-check
+#user-dir
+#vhost

@@ -1,0 +1,46 @@
+# Build directories
+build/
+cmake-build*/
+
+# Downloaded and extracted THTTPD
+thttpd-*/
+
+# IDE files
+.idea/
+.vscode/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Object files
+*.o
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Executables
+*.exe
+*.out
+*.app
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 
+.DS_Store
+b/
+build/
+*.swp
+*.*.swp
